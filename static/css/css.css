@@ -1,0 +1,37 @@
+.student{
+	display:inline-block;
+	margin:10px;
+	padding:20px;
+	border:2px solid #ccc;
+}
+.student:hover{
+	box-shadow:2px 3px 25px 5px #aaa;
+}
+.student > img{
+	width:280px;
+	height:280px;
+}
+.studentName{
+	text-align:center;
+}
+.studentStatus{
+	text-align:center;
+	padding:10px;
+	margin:0px;
+}
+.Active{
+	background:green;
+	color:white;
+}
+.Absent{
+	background:#ccc;
+	color:white;
+}
+.classHeader{
+	display:block;
+	background:#345;
+	font-size:32px;
+	color:white;
+	text-align:center;
+}
+

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{{ className }}</title>
+	<link ref="stylesheet" href="static/css/css.css" />
+	<style>
+		.student{
+			display:inline-block;
+			margin:10px;
+			padding:20px;
+			border:2px solid #ccc;
+		}
+		.student:hover{
+			box-shadow:0px 2px 15px 0.7px #ccc;
+		}
+		.studentImage{
+			width:280px;
+			height:280px;
+		}
+		.studentName{
+			text-align:center;
+		}
+		.studentStatus{
+			text-align:center;
+			padding:10px;
+			margin:0px;
+			color:white;
+			background: #ccc;
+		}
+		.classHeader{
+			display:block;
+			background:#345;
+			font-size:32px;
+			text-align:center;
+			padding: 15px;
+			color:white;
+		}
+		.Active{
+			background: green;
+		}
+		.Inactive{
+			background: #ccc;
+		}
+	</style>
+</head>
+<body>
+	<div class="classHeader">{{className}}</div>
+	{% for student in students %}
+	<div class="student">
+		<img class="studentImage" src="static/pictures/{{className}}/{{student}}.jpg" />
+		<h1 class="studentName" >{{student}}</h1>
+		<p class="studentStatus Active" >Active</p>
+	</div>
+	{% endfor %}
+	<div id="demo">
+	<h1>The XMLHttpRequest Object</h1>
+	<button type="button" onclick="loadDoc()">Change Content</button>
+	</div>
+
+	<script>
+	function loadDoc() {
+	  var xhttp = new XMLHttpRequest();
+	  xhttp.onreadystatechange = function() {
+	    if (this.readyState == 4 && this.status == 200) {
+	      var status = JSON.parse(this.responseText);
+
+	      document.innerHTML+= this.responseText;
+	      var students = document.getElementsByClassName("student");
+	      for(student of students){
+	      	studentName = student.getElementsByClassName("studentName")[0];
+	      	studentStatus = student.getElementsByClassName("studentStatus")[0];
+	      	studentStatus.innerHTML = status[studentName.innerHTML];
+	      	studentStatus.className = "studentStatus "+status[studentName.innerHTML];
+	      }
+	    }
+	  };
+	  xhttp.open("GET", "/{{className}}/status" , true);
+	  xhttp.send();
+	}
+	setInterval(loadDoc,10000)
+	</script>
+</body>
+</html>
